@@ -66,11 +66,14 @@ import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.ACTIVITY_RECOGNITION
+import android.os.PowerManager
+
 /**
  * Main Screen
  */
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListener {
   private lateinit var binding: ActivityMainBinding
+  var wl: PowerManager.WakeLock? = null
 
   // ViewModel
   private val mapsActivityViewModel: MapsActivityViewModel by viewModels {
@@ -106,6 +109,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     get() = this.getSharedPreferences(KEY_SHARED_PREFERENCE, Context.MODE_PRIVATE).getBoolean(KEY_IS_TRACKING, false)
     set(value) = this.getSharedPreferences(KEY_SHARED_PREFERENCE, Context.MODE_PRIVATE).edit().putBoolean(KEY_IS_TRACKING, value).apply()
 
+  @SuppressLint("ServiceCast", "InvalidWakeLockTag")
   override fun onCreate(savedInstanceState: Bundle?) {
     // Switch to AppTheme for displaying the activity
     setTheme(R.style.AppTheme)
@@ -132,6 +136,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
       // Reset the display text
       updateAllDisplayText(0, 0f)
+
+      /** WakeLock **/
+      wl = (getSystemService(Context.POWER_SERVICE) as PowerManager).run {
+        newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "myWakeLock").apply {
+          acquire() // Adquiere el bloqueo de activacion
+        }
+      }
+
+      /* var pm: PowerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+      wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "myWakeLock")
+      wl?.acquire() // Adquiere el bloqueo de activacion */
 
       startTracking()
     }
@@ -200,6 +215,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         .setPositiveButton("Confirm") { _, _ ->
           isTracking = false
           updateButtonStatus()
+
+          /** WakeLock **/
+          wl?.release()
+
           stopTracking()
         }.setNegativeButton("Cancel") { _, _ ->
         }
