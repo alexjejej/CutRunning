@@ -67,6 +67,13 @@ import com.vmadalin.easypermissions.annotations.AfterPermissionGranted
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.ACTIVITY_RECOGNITION
 import android.os.PowerManager
+import api.Instance
+import api.dtos.TrainingDto
+import api.request.ITrainingRequest
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 /**
  * Main Screen
@@ -74,6 +81,10 @@ import android.os.PowerManager
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListener {
   private lateinit var binding: ActivityMainBinding
   var wl: PowerManager.WakeLock? = null
+  var apiinstance = Instance.getRetrofitInstance()
+  var steps: Int = 0
+  var averagespeed: Double = 0.0
+  var distance: Double = 0.0
 
   // ViewModel
   private val mapsActivityViewModel: MapsActivityViewModel by viewModels {
@@ -203,10 +214,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
   private fun updateAllDisplayText(stepCount: Int, totalDistanceTravelled: Float) {
     binding.numberOfStepTextView.text =  String.format("Step count: %d", stepCount)
+    steps = stepCount
     binding.totalDistanceTextView.text = String.format("Total distance: %.2fm", totalDistanceTravelled)
+    distance = totalDistanceTravelled.toDouble()
 
     val averagePace = if (stepCount != 0) totalDistanceTravelled / stepCount.toDouble() else 0.0
     binding.averagePaceTextView.text = String.format("Average pace: %.2fm/ step", averagePace)
+    averagespeed = averagePace
+  }
+
+  /** Resgistro del entrenamiento en la db **/
+  private fun addTraining() {
+    CoroutineScope(Dispatchers.IO).launch {
+      val call: Response<String> = apiinstance.create( ITrainingRequest::class.java ).addNewTraining( TrainingDto(steps, averagespeed, distance) )
+      val response: String = call.body() ?: ""
+      runOnUiThread {
+        if ( call.isSuccessful ) {
+          Toast.makeText(this@MapsActivity, "Respuesta obtenida: $response", Toast.LENGTH_SHORT).show()
+        }
+        else
+          Toast.makeText(this@MapsActivity, "Fallo al registrar el entrenamiento", Toast.LENGTH_SHORT).show()
+      }
+    }
   }
 
   private fun endButtonClicked() {
@@ -220,6 +249,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
           wl?.release()
 
           stopTracking()
+          addTraining()
         }.setNegativeButton("Cancel") { _, _ ->
         }
         .create()
