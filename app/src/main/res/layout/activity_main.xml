@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -22,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="start" />
+        android:text="Iniciar" />
 
     <Button
         android:id="@+id/endButton"
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_weight="1"
-        android:text="end"/>
+        android:text="Terminar"/>
   </LinearLayout>
 
   <TextView
@@ -39,7 +41,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:paddingStart="16dp"
-      android:text="Number of step: "
+      android:text="Pasos: "
       android:textSize="16sp"
       android:textStyle="bold" />
   <TextView
@@ -47,7 +49,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingStart="16dp"
-      android:text="Total distance: "
+      android:text="Distancia total: "
       android:textSize="16sp"
       android:textStyle="bold" />
   <TextView
@@ -55,10 +57,32 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingStart="16dp"
-      android:text="Average pace: "
+      android:text="Ritmo promedio: "
       android:layout_marginBottom="16dp"
       android:textSize="16sp"
       android:textStyle="bold" />
+
+  <TextView
+      android:id="@+id/PasosHoy"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Pasos hoy: "
+      android:textSize="16sp"
+      android:textStyle="bold"/>
+  <TextView
+      android:id="@+id/DistanciaHoy"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Distancia hoy: "
+      android:textSize="16sp"
+      android:textStyle="bold"/>
+  <TextView
+      android:id="@+id/PasosTotales"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Pasos totales: "
+      android:textSize="16sp"
+      android:textStyle="bold"/>
 
   <fragment
       android:id="@+id/map"

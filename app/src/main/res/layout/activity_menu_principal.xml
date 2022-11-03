@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.raywenderlich.android.rwandroidtutorial.MenuPrincipal">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="¿Qué te gustaria hacer?"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCarrera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="122dp"
+        android:layout_marginEnd="11dp"
+        android:onClick="btnCarrera"
+        android:text="Carrera"
+        app:layout_constraintEnd_toStartOf="@+id/btnLogros"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLogros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="22dp"
+        android:text="Logros"
+        app:layout_constraintBottom_toTopOf="@+id/btnClasificacion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCarrera" />
+
+    <Button
+        android:id="@+id/btnClasificacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="74dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="@+id/btnLogros"
+        app:layout_constraintStart_toStartOf="@+id/btnCarrera"
+        app:layout_constraintTop_toBottomOf="@+id/btnCarrera" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
