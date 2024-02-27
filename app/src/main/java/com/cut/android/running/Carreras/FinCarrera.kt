@@ -49,6 +49,7 @@ class FinCarrera : AppCompatActivity() {
     private lateinit var btnReintentarEstatus: Button
     private lateinit var txtEstatusPasos: TextView
     private lateinit var txtAlert: TextView
+    private lateinit var txtcaloriasT: TextView
     private lateinit var btnHome: Button
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
@@ -80,7 +81,7 @@ class FinCarrera : AppCompatActivity() {
         btnHome = findViewById(R.id.btnMenu)
         txtAlert = findViewById(R.id.txtAlert)
         txtEstatusPasos = findViewById(R.id.txtEstatusPasos)
-
+        txtcaloriasT = findViewById(R.id.txtcaloriasT)
         btnReintentarEstatus.setOnClickListener {
             txtEstatusPasos.text = "Cargando datos..."
             txtEstatusPasos.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_update, 0, 0, 0)
@@ -92,7 +93,6 @@ class FinCarrera : AppCompatActivity() {
             ReturnHome()
         }
     }
-
 
     private fun actualizarEstadoUI() {
 
@@ -198,18 +198,19 @@ class FinCarrera : AppCompatActivity() {
         // Obtener nombre de usuario
         val email = DatosUsuario.getEmail(this)
 
-
         //Obtener datos de sqlite
         val db = BDsqlite(this)
         val PasosHoy = db.getIntData(email,BDsqlite.COLUMN_PASOS_HOY)
         val PasosTotales = db.getIntData(email,BDsqlite.COLUMN_PASOS_TOTALES)
-        val Distancia = db.getFloatData(email,BDsqlite.COLUMN_DISTANCIA)
+        val Distancia = db.getFloatData(email,BDsqlite.COLUMN_DISTANCIA_HOY)
+        val peso = db.getIntData(email,BDsqlite.COLUMN_PESO).toDouble()
         val nombreUsuario = DatosUsuario.getUserName(this)
 
         //mostrar los datos de cada consulta
         txtPasos.text = (PasosHoy.toString()+" pasos")
         txtPasosT.text = (PasosTotales.toString()+" pasos")
         txtDistancia.text = (Distancia.toString()+ " metros")
+        calcularYMostrarCalorias(peso, PasosTotales)
 
         //Procesar clasificacion
         if (nombreUsuario != null) {
@@ -229,6 +230,29 @@ class FinCarrera : AppCompatActivity() {
                 actualizarEstadoUI()
             }
         }
+    }
+
+    private fun calcularYMostrarCalorias(peso: Double, totalPasos: Int) {
+
+        // Verificar si el peso está disponible
+        if (peso <= 0) {
+            // Mostrar mensaje si el peso no está disponible
+            txtcaloriasT.apply {
+                text = "Debes agregar tu peso al perfil para ver este dato"
+                textSize = 12f // Cambiar el tamaño del texto a 12sp
+            }
+        } else {
+            val caloriasQuemadas = calcularCaloriasQuemadas(peso, totalPasos)
+            txtcaloriasT.text = String.format("%.1f calorías", caloriasQuemadas)
+
+        }
+    }
+    fun calcularCaloriasQuemadas(peso: Double, totalPasos: Int): Double {
+        val pasosPorMinuto = 90
+        val tiempoEnHoras = ((totalPasos) / pasosPorMinuto) / 60.0
+        val MET = 3.5 // Valor promedio para caminata moderada
+        val calorias = MET * peso * tiempoEnHoras
+        return calorias
     }
 
     private fun clasificacion(pasosT: Int, email: String, nombreUsuario: String): Deferred<Boolean> {
@@ -384,7 +408,9 @@ class FinCarrera : AppCompatActivity() {
             findViewById<TextView>(R.id.txtDistancia),
             findViewById<TextView>(R.id.textview10),
             findViewById<TextView>(R.id.txtpasosT),
-            findViewById<Button>(R.id.btnMenu)
+            findViewById<Button>(R.id.btnMenu),
+            findViewById(R.id.textview11),
+            txtcaloriasT
         )
 
         for ((index, view) in viewsToAnimate.withIndex()) {

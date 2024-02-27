@@ -109,6 +109,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview10" />
 
+    <TextView
+        android:id="@+id/textview11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Calorías: "
+        android:textSize="25sp"
+        android:gravity="center"
+        android:alpha="0"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtpasosT" />
+
+    <TextView
+        android:id="@+id/txtcaloriasT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:alpha="0"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview11" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -117,8 +143,9 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="2"
+        android:layout_marginTop="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btnMenu"
-        app:layout_constraintTop_toBottomOf="@+id/txtpasosT"
+        app:layout_constraintTop_toBottomOf="@+id/txtcaloriasT"
         tools:layout_editor_absoluteX="16dp">
 
         <TextView
@@ -157,7 +184,7 @@
         android:textSize="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/txtpasosT"
+        app:layout_constraintTop_toBottomOf="@+id/txtcaloriasT"
          />
 
 
@@ -169,6 +196,7 @@
         android:layout_height="wrap_content"
         android:text="Regresar al menú principal"
         app:layout_constraintEnd_toEndOf="parent"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp" />

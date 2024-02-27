@@ -19,6 +19,7 @@ import com.cut.android.running.databinding.FragmentNavBarBinding
 import com.cut.android.running.models.Session
 import com.cut.android.running.provider.services.navigation.NavigationObj
 import com.cut.android.running.usecases.clasificacion.ClasificacionFragment
+import com.cut.android.running.usecases.estadisticas.EstadisticasFragment
 import com.cut.android.running.usecases.home.HomeFragment
 import com.cut.android.running.usecases.login.LoginFragment
 import com.cut.android.running.usecases.logros.LogrosFragment
@@ -107,7 +108,7 @@ class NavBarFragment : Fragment() {
                 return navigateTo(HomeFragment(), getString(R.string.HomeFragment))
             }
             R.id.btnAddTraining -> {
-                return navigateTo(MapsFragment(), getString(R.string.HomeFragment))
+                return navigateTo(MapsFragment(), getString(R.string.MapsFragment))
             }
             R.id.btnAchievements -> {
                 return navigateTo(LogrosFragment(), getString(R.string.AchievementFragment))
@@ -115,7 +116,12 @@ class NavBarFragment : Fragment() {
             R.id.btnClasificacion -> {
                 return navigateTo(ClasificacionFragment(), getString(R.string.ClasificationFragment))
             }
-            R.id.btnLogout -> {
+            R.id.btnStatistics -> {
+                return navigateTo(EstadisticasFragment(), getString(R.string.StatisticsFragment))
+            }
+
+
+                    R.id.btnLogout -> {
                 return logout()
             }
             else -> return false

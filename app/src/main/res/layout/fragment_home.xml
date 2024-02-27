@@ -87,54 +87,73 @@
         >
 
     </TextView>
-    <!-- LinearLayout vertical para los botones Logros y Clasificación -->
+    <!-- LinearLayout vertical para los botones   -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_weight="1.7"
         android:weightSum="3"
         android:gravity="center">
 
-        <!-- Botón Logros -->
 
-        <!-- Botón Clasificación -->
-        <Button
-            android:id="@+id/btnLogros"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:background="#FFFFFF"
-            android:fontFamily="@font/kodemono_medium"
+        <!-- Primera linea de botones horizontales -->
 
-            android:drawableLeft="@drawable/icon_military_tech_24"
-            android:text="Logros" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1.5"
+            android:weightSum="3"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btnClasificacion"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:text="Ranking"
-            android:fontFamily="@font/kodemono_medium"
+            <Button
+                android:id="@+id/btnLogros"
+                style="@style/EstiloBotonHome"
+                android:text="Logros"
+                android:drawableLeft="@drawable/icon_military_tech_24" />
 
-            android:drawableLeft="@drawable/baseline_format_list_numbered_24"
-            android:background="#FFFFFF"
-            android:layout_marginBottom="8dp"/>
 
-        <Button
-            android:id="@+id/btnProfile"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:text="Perfil"
-            android:fontFamily="@font/kodemono_medium"
-            android:drawableLeft="@drawable/baseline_account_box_24"
-            android:background="#FFFFFF"
-            android:layout_marginBottom="8dp"/>
+            <Button
+                android:id="@+id/btnClasificacion"
+                style="@style/EstiloBotonHome"
+                android:text="Ranking"
+                android:drawableLeft="@drawable/baseline_format_list_numbered_24"
+                />
+
+            <Button
+                android:id="@+id/btnProfile"
+                style="@style/EstiloBotonHome"
+                android:text="Perfil"
+                android:drawableLeft="@drawable/baseline_account_box_24"
+                />
+
+
+        </LinearLayout>
+
+        <!-- Segunda linea de botones horizontales -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1.5"
+            android:weightSum="3"
+            android:gravity="center">
+
+
+
+            <Button
+                android:id="@+id/btnEstadisticas"
+                style="@style/EstiloBotonHome"
+                android:layout_weight="1.3"
+                android:text="Estadisticas"
+                android:drawableLeft="@drawable/icon_statistics"
+                />
+
+
+        </LinearLayout>
+
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

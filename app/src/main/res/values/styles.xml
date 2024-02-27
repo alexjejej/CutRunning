@@ -30,6 +30,18 @@
 
   </style>
 
+  <!-- Estilo para botones horizontales home -->
+
+  <style name="EstiloBotonHome">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:layout_margin">10dp</item>
+    <item name="android:background">#FFFFFF</item>
+    <item name="android:fontFamily">@font/kodemono_medium</item>
+  </style>
+
+
   <!-- Estilo para TextInputLayout -->
   <style name="MyTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
     <item name="android:textSize">12sp</item>
@@ -62,6 +74,25 @@
     <item name="android:windowExitAnimation">@anim/slide_out</item>
   </style>
 
+  <!-- Subtitulo txt -->
+  <style name="txtSubtitulo">
+    <item name="android:gravity">center</item>
+    <item name="android:fontFamily">@font/kodemono_bold</item>
+    <item name="android:textSize">18sp</item>
+  </style>
 
+  <!-- etiqueta txt -->
+  <style name="txtEtiqueta">
+    <item name="android:gravity">center</item>
+    <item name="android:fontFamily">@font/kodemono_regular</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <!-- Titulo grande txt -->
+  <style name="txtTituloGrande">
+    <item name="android:gravity">center</item>
+    <item name="android:fontFamily">@font/kodemono_regular</item>
+    <item name="android:textSize">28sp</item>
+  </style>
 
 </resources>

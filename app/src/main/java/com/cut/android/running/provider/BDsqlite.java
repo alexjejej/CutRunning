@@ -17,6 +17,8 @@ public class BDsqlite extends SQLiteOpenHelper {
     public static final String COLUMN_PASOS_HOY = "pasoshoy";
     public static final String COLUMN_PASOS_TOTALES = "pasostotales";
     public static final String COLUMN_DISTANCIA = "distancia";
+
+    public static final String COLUMN_DISTANCIA_HOY = "distanciahoy";
     public static final String COLUMN_CODE = "codigo";
     public static final String COLUMN_PESO = "peso";
     public static final String COLUMN_EDAD = "edad";
@@ -36,6 +38,7 @@ public class BDsqlite extends SQLiteOpenHelper {
                     COLUMN_LASTNAME + " TEXT, " +
                     COLUMN_EDAD + " INTEGER, " +
                     COLUMN_DISTANCIA + " FLOAT, " +
+                    COLUMN_DISTANCIA_HOY + " FLOAT, " +
                     COLUMN_ESTATURA + " REAL, " +
                     COLUMN_DISTANCEPERSTEP + " REAL, " +
                     COLUMN_PESO + " REAL, " +
@@ -63,13 +66,14 @@ public class BDsqlite extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void upsertData(String email, int pasoshoy, int pasostotales, float distancia) {
+    public void upsertData(String email, int pasoshoy, int pasostotales, float distancia, float distanciahoy) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_EMAIL, email);
         values.put(COLUMN_PASOS_HOY, pasoshoy);
         values.put(COLUMN_PASOS_TOTALES, pasostotales);
         values.put(COLUMN_DISTANCIA, distancia);
+        values.put(COLUMN_DISTANCIA_HOY, distanciahoy);
 
         int rowsAffected = db.update(TABLE_NAME, values, COLUMN_EMAIL + " = ?", new String[]{email});
         if (rowsAffected == 0) {

@@ -85,6 +85,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
         viewModel.totalSteps.observe(viewLifecycleOwner) { steps ->
             view.findViewById<TextView>(R.id.tvPasos).text = getString(R.string.steps_template, steps)
         }
+
+        viewModel.timeElapsed.observe(viewLifecycleOwner) { time ->
+            view.findViewById<TextView>(R.id.tvTiempo).text = time
+        }
         //botón para centrar el mapa
         btnCentrar = view.findViewById(R.id.btnCentrar)
         btnCentrar.setOnClickListener {
@@ -139,6 +143,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
 
             if (isTracking) {
                 // Si el seguimiento se ha iniciado
+                viewModel.startTimer()
                 btnIniciar?.text = getString(R.string.detener) // Actualiza el texto del botón a "Detener"
                 btnIniciar?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.button_started))
 
@@ -157,6 +162,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
                 btnCentrarCut.visibility = View.VISIBLE
 
             } else {
+                // Detener el seguimiento
+                viewModel.stopTimer()
                 // Si el seguimiento se ha detenido
                 Log.d("MapsFragment","Se ha detenido")
                 GuardarEnSQLite()
@@ -224,23 +231,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback, SensorEventListener {
 
         val db = BDsqlite(requireContext())
         val PasosTotales = db.getIntData(email,BDsqlite.COLUMN_PASOS_TOTALES) + PasosRecorridoHoy!!
-        db.upsertData(email, PasosRecorridoHoy!!, PasosTotales, totalDistanceTravelled!!)
-
-
-        // Obtener datos para el email registrado
-        val cursorPasosHoy = db.getData(BDsqlite.getColumnPasosHoy(), email)
-        val cursorPasosTotales = db.getData(BDsqlite.getColumnPasosTotales(), email)
-        val cursorDistancia = db.getData(BDsqlite.getColumnDistancia(), email)
-
-
-        //cerrar los cursores después de usarlos
-
-        cursorPasosHoy.close()
-        cursorPasosTotales.close()
-        cursorDistancia.close()
+        val distanciahoy = totalDistanceTravelled
+        val DistanciaTotal = db.getFloatData(email, BDsqlite.COLUMN_DISTANCIA) + distanciahoy!!
+        db.upsertData(email, PasosRecorridoHoy, PasosTotales, DistanciaTotal, distanciahoy)
 
     }
-
 
 
     // Starts counting steps by registering the sensor event listener

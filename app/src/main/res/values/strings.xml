@@ -43,6 +43,7 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
     <string name="item_roles">Roles</string>
+    <string name="item_statistics">Estadísticas</string>
 
     <!-- Nav Header -->
     <string name="txt_welcome">Bienvenido</string>
@@ -69,5 +70,22 @@
     <string name="Speciality_ID_prompt">Selecciona una carrera disponible</string>
     <string name="distance_template">%1$.2f</string>
     <string name="steps_template">%d</string>
+
+    <!--  Txt estadisticas  -->
+    <string name="info_calorias_html">&lt;u&gt;¿Cómo lo calculamos? click aquí&lt;/u&gt;</string>
+
+    <!--  mensaje explicación calorias  -->
+
+    <string name="explicacion_calorias">
+    <![CDATA[
+    <strong>¿Cómo Calculamos las Calorías Quemadas?</strong><br/><br/>" +
+            "En nuestra aplicación, estimamos las calorías que has quemado durante tu caminata utilizando una combinación de tu peso, el número total de pasos que has dado, y un promedio establecido de pasos por minuto. Aquí te explicamos paso a paso cómo funciona este cálculo:<br/><br/>" +
+            "<strong>1. Pasos por Minuto:</strong> Para simplificar y estandarizar nuestros cálculos, asumimos un ritmo de caminata moderado de <strong>90 pasos por minuto</strong>. Este es un promedio que considera una intensidad moderada, típica de una caminata regular.<br/><br/>" +
+            "<strong>2. Tiempo de Actividad:</strong> Convertimos el total de pasos que has dado en el tiempo que has estado activo, dividiendo el número total de pasos por 90 (pasos por minuto) y luego ese resultado lo convertimos a horas. Esto nos da una estimación del tiempo total que has estado caminando.<br/><br/>" +
+            "<strong>3. MET (Metabolic Equivalent of Task):</strong> Usamos un valor MET de <strong>3.5</strong> para la caminata moderada. El MET es una unidad que mide el gasto energético de una actividad física en comparación con el reposo. Un MET de 3.5 significa que la caminata quema 3.5 veces más energía que estar en reposo.<br/><br/>" +
+            "<strong>4. Cálculo de Calorías:</strong> Finalmente, multiplicamos el valor MET por tu peso en kilogramos y por el tiempo de actividad en horas. Esta operación nos da el total de calorías quemadas durante tu caminata. La fórmula que usamos es: Calorías quemadas = MET × Peso en kg × Tiempo en horas<br/><br/>" +
+            "Es importante recordar que este cálculo es una estimación basada en promedios y puede variar dependiendo de factores individuales, como la intensidad exacta de tu caminata, tu metabolismo y otros. Sin embargo, ofrece una buena aproximación del gasto energético durante tus actividades.
+    ]]>
+    </string>
 
 </resources>

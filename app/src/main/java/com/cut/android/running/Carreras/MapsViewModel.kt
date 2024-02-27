@@ -1,7 +1,9 @@
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
@@ -25,7 +27,38 @@ class MapsViewModel : ViewModel() {
     private val tiempoEsperaToast = 4000L // 4 segundos entre cada Toast
     private val intervaloTiempoOriginal = 4000L
     private var tiempoPenalizacion = 0L // Tiempo hasta que la penalización se restablece
+    private var timerHandler = Handler(Looper.getMainLooper())
+    private var startTime = 0L
+    private var timeUpdateTask = object : Runnable {
+        override fun run() {
+            val totalSeconds = (SystemClock.uptimeMillis() - startTime) / 1000
+            val hours = totalSeconds / 3600
+            val minutes = (totalSeconds % 3600) / 60
+            val seconds = totalSeconds % 60
 
+            // Decide el formato basado en el tiempo transcurrido
+            val timeString = when {
+                hours > 0 -> String.format("%02d:%02d:%02d", hours, minutes, seconds) // Horas:Minutos:Segundos
+                else -> String.format("%02d:%02d", minutes, seconds) // Minutos:Segundos
+            }
+
+            _timeElapsed.postValue(timeString)
+
+            timerHandler.postDelayed(this, 1000)
+        }
+    }
+
+    private val _timeElapsed = MutableLiveData<String>()
+    val timeElapsed: LiveData<String> = _timeElapsed
+
+    fun startTimer() {
+        startTime = SystemClock.uptimeMillis()
+        timerHandler.postDelayed(timeUpdateTask, 0)
+    }
+
+    fun stopTimer() {
+        timerHandler.removeCallbacks(timeUpdateTask)
+    }
 
 
 

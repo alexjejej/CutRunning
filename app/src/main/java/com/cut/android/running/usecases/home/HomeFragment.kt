@@ -15,6 +15,7 @@ import com.cut.android.running.R
 import com.cut.android.running.usecases.clasificacion.ClasificacionFragment
 import com.cut.android.running.provider.DatosUsuario
 import com.cut.android.running.provider.resources.ManejadorAccionesFallidas
+import com.cut.android.running.usecases.estadisticas.EstadisticasFragment
 import com.cut.android.running.usecases.logros.LogrosFragment
 import com.cut.android.running.usecases.logros.admin.AdminLogrosFragment
 import com.cut.android.running.usecases.profile.ProfileFragment
@@ -31,6 +32,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var btnAdminCarreras: Button
     private lateinit var btnReintentarEstatus : Button
     private lateinit var btnPerfil: Button
+    private lateinit var btnEstadisticas : Button
+
     private lateinit var manejadorAcciones: ManejadorAccionesFallidas
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,6 +50,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         btnAdminCarreras = view.findViewById(R.id.btnAdminCarreras)
         btnPerfil = view.findViewById(R.id.btnProfile)
         btnReintentarEstatus = view.findViewById(R.id.btnReintentarEstatus)
+        btnEstadisticas = view.findViewById(R.id.btnEstadisticas)
 
         btnCarrera.setOnClickListener { navigateToFragment(MapsFragment()) }
         btnLogros.setOnClickListener { navigateToFragment(LogrosFragment()) }
@@ -54,6 +58,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         btnAdminLogros.setOnClickListener { navigateToFragment(AdminLogrosFragment()) }
         btnAdminCarreras.setOnClickListener{ navigateToFragment(RacesManagement()) }
         btnPerfil.setOnClickListener{ navigateToFragment(ProfileFragment()) }
+        btnEstadisticas.setOnClickListener{ navigateToFragment(EstadisticasFragment())}
         // Instanciar ManejadorAccionesFallidas
         manejadorAcciones = ManejadorAccionesFallidas(requireContext())
 
@@ -93,6 +98,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         if (isConnected) {
             txtApiConnectionStatus?.text = "Conectado"
             txtApiConnectionStatus?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_connected, 0, 0, 0)
+            btnReintentarEstatus.visibility = View.GONE
+            /*
             if (hayPendiente) {
                 // Hay tareas pendientes, mostrar botón y mensaje adecuado
                 btnReintentarEstatus.visibility = View.VISIBLE
@@ -102,7 +109,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             } else {
                 // No hay tareas pendientes, esconder botón de reintentar
                 btnReintentarEstatus.visibility = View.GONE
-            }
+            }*/
         } else {
             txtApiConnectionStatus?.text = "Desconectado"
             txtApiConnectionStatus?.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_desconnected, 0, 0, 0)
@@ -141,4 +148,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .addToBackStack(null)
             .commit()
     }
+
+
 }
